@@ -4,17 +4,24 @@ import { provide, ref } from "vue";
 import type { Ref } from "vue";
 import { removeTodo_Key } from "./assets/keys.ts";
 
+/* 
+  Зачем это тут, если есть переменна в конфиге
+*/
 const maxLengthTodo_CONFIG = 5;
 
 const itemTodo: Ref<String> = ref("");
 const modalActive: Ref<Boolean> = ref(false);
 const itemsTodo: Ref<String[]> = ref([]);
 
+/* 
+  В этой функции ты просто добавляешь в тудулист ещё одно тудулист
+  Поэтому возвращать значение не надо (ты же результат выполнения никуда не присваиваешь)
+*/
 const addTodo = function () {
   if (itemsTodo.value.length < maxLengthTodo_CONFIG) {
-    return itemsTodo.value.push(itemTodo.value);
+    itemsTodo.value.push(itemTodo.value);
   } else {
-    return console.log("Maximum length of Todo");
+    console.log("Maximum length of Todo");
   }
 };
 
@@ -23,6 +30,12 @@ const deleteItem = function (index: number) {
 };
 
 provide(removeTodo_Key, deleteItem);
+
+/* 
+  В строчках 48 | 53 сделать как в строчке 66 -> функции лучше вынести в отдельные которые будут в script 
+  Потому что ты заебешься менять функции внутри шаблона
+  Плюсом в template содержаться должна только верстка, а в script только логика 
+*/
 </script>
 
 <template>

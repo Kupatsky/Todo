@@ -8,7 +8,15 @@ const deleteItem: removeTodoFunc = inject(removeTodo_Key);
 </script>
 
 <template>
-  <p>{{ index }}</p>
-  <p>{{ todo }}</p>
-  <button @click="deleteItem(index)">Delete</button>
+  <div class="listTodo">
+    <p>{{ index }}</p>
+    <p>{{ todo }}</p>
+    <button @click="deleteItem(index)">Delete</button>
+  </div>
 </template>
+
+<style scoped>
+.listTodo {
+  display: list-item;
+}
+</style>
