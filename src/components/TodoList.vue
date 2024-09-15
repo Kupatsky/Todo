@@ -1,14 +1,11 @@
 <script setup lang="ts">
+import Todo from "./Todo.vue";
 
-import Todo from './Todo.vue'
-
-defineProps(['todoList'])
-
-
+defineProps(["todoList"]);
 </script>
 
 <template>
-  <Todo 
+  <Todo
     class="listTodo"
     v-for="(todo, index) in todoList"
     :key="index"
@@ -18,9 +15,7 @@ defineProps(['todoList'])
 </template>
 
 <style scoped>
-
-.listTodo { 
-  display:list-item;
+.listTodo {
+  display: list-item;
 }
-
 </style>
