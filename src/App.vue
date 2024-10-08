@@ -2,88 +2,158 @@
 import TodoList from "./components/TodoList.vue";
 import { provide, ref } from "vue";
 import type { Ref } from "vue";
-import { removeTodo_Key } from "./assets/keys.ts";
+// import { maxLenghtTodo_CONFIG } from "./config.ts"
+import { useTodoStore } from './storage/todoStore.ts'
+import type { Todos, Todo } from "./storage/todoStore.ts"
 
-/* 
-  Зачем это тут, если есть переменна в конфиге
-*/
-const maxLengthTodo_CONFIG = 5;
+const { todos, addTodo } = useTodoStore()
+const newTodoContent: Ref<string | null> = ref('')
+  // Инжект потом попробуй
+const typedTodos = todos as Ref<Todos>
 
-const itemTodo: Ref<String> = ref("");
-const modalActive: Ref<Boolean> = ref(false);
-const itemsTodo: Ref<String[]> = ref([]);
-
-/* 
-  В этой функции ты просто добавляешь в тудулист ещё одно тудулист
-  Поэтому возвращать значение не надо (ты же результат выполнения никуда не присваиваешь)
-*/
-const addTodo = function () {
-  if (itemsTodo.value.length < maxLengthTodo_CONFIG) {
-    itemsTodo.value.push(itemTodo.value);
-  } else {
-    console.log("Maximum length of Todo");
+  const addNewTodo = () => {
+  if (newTodoContent.value) {
+    addTodo(newTodoContent.value);
+    newTodoContent.value = null; // Очищаем поле ввода после добавления
   }
 };
 
-const deleteItem = function (index: number) {
-  itemsTodo.value.splice(index, 1);
-};
+// const itemTodo: Ref<String> = ref("");
+const modalActive: Ref<Boolean> = ref(false);
+// const itemsTodo: Ref<String[]> = ref([]);
 
-provide(removeTodo_Key, deleteItem);
+// const addTodo = function(): void {
+//   if (itemsTodo.value.length < maxLenghtTodo_CONFIG) {
+//     itemsTodo.value.push(itemTodo.value);
+//   } else {
+//     console.log("Maximum length of Todo");
+//   }
+// };
 
-/* 
-  В строчках 48 | 53 сделать как в строчке 66 -> функции лучше вынести в отдельные которые будут в script 
-  Потому что ты заебешься менять функции внутри шаблона
-  Плюсом в template содержаться должна только верстка, а в script только логика 
-*/
+// const deleteItem = function (index: number):void {
+//   itemsTodo.value.splice(index, 1);
+// };
+
+
+// provide(removeTodo_Key, deleteItem);
 </script>
 
 <template>
-  <div class="header">
+  <header>
     <h2>Todo-list</h2>
-  </div>
-  <div class="body">
-    <h2>Todo Items</h2>
-    <button
-      @click="modalActive = !modalActive"
-      class="todoButton"
+    <div
+      class="input-container"
+      v-if="modalActive"
     >
-      Add new Todo
-    </button>
-    <button @click="console.log(itemsTodo)">CHeck</button>
-  </div>
-  <div
-    class="input_template"
-    v-if="modalActive"
-  >
-    <p>Что вы хотите сделать</p>
     <input
+      class="input-panel"
       type="text"
-      v-model="itemTodo"
+      v-model="newTodoContent"
       placeholder="What u gonna do today"
-      @keyup.enter="addTodo"
+      @keyup.enter="addNewTodo"
     />
+    </div>
+    <button  
+      @click="modalActive = !modalActive"
+      class="add-todo-button"
+    >
+      <img src="./images/file-plus-svgrepo-com.svg" alt="Добавить" class="icon" />
+    </button>
+    <button  
+      @click="console.log(todos)"
+      class="add-todo-button"
+    >
+      <img src="./images/file-plus-svgrepo-com.svg" alt="Добавить" class="icon" />
+    </button>
+  </header>
+  <div class="todoColumn">
+    <TodoList 
+      :typedTodos="typedTodos" 
+  />
   </div>
-  <TodoList :todoList="itemsTodo" />
 </template>
 
 <style scoped>
-.header {
+header {
   position: fixed;
-  top: 0px;
-  left: 30px;
-  display: inline-flex;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  background-color: rgba(255, 0, 0, 0.800);
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Распределяет пространство между элементами */
+  padding: 0 20px;
+  color: white;
+  z-index: 1000;
 }
 
-.modal {
-  display: flow-root;
+header .title {
+  flex: 1;
 }
 
-.todoButton {
-  border-radius: 5px;
+.add-todo-button {
+  background-color: transparent; /* Прозрачный фон */
+  border: none; /* Убираем рамку */
+  border-radius: 50%; /* Делаем кнопку круглой */
+  width: 40px; /* Ширина кнопки */
+  height: 40px; /* Высота кнопки */
+  cursor: pointer; /* Курсор в виде указателя */
+  display: flex; /* Для центрирования иконки */
+  align-items: center; /* Вертикальное центрирование */
+  justify-content: center; /* Горизонтальное центрирование */
+  transition: background-color 0.3s; /* Плавный переход цвета фона */
 }
 
-.body {
-  display: inline-flex;
+.add-todo-button:hover {
+  background-color: rgba(255, 255, 255, 0.462); /* Цвет фона при наведении */
 }
+
+.icon { 
+  width: 20px; /* Ширина иконки */
+  height: 20px; /* Высота иконки */
+}
+
+.todoColumn { 
+  color: black;
+  background-color: aliceblue;
+}
+
+.input-container {
+  flex: 1; /* Занимает доступное пространство в центре */
+  display: flex;
+  justify-content: center; /* Центрирует input-панель */
+}
+
+.input-panel {
+  margin-bottom: 0px;
+  width: 200px; /* Ширина панели ввода */
+  padding: 10px; /* Отступы внутри */
+  font-weight: lighter; /* Жирный шрифт */
+  font-size: 12px; /* Размер шрифта */
+  border: 2px solid rgba(255, 255, 255, 0.5); /* Полупрозрачная рамка */
+  border-radius: 5px; /* Закругленные углы */
+  background-color: rgba(255, 255, 255, 0.6); /* Полупрозрачный фон */
+  color: #333; /* Цвет текста */
+  transition: border-color 0.3s; /* Плавный переход для рамки */
+}
+
+.input-panel::placeholder {
+    color: rgba(0, 0, 0, 0.5); /* Цвет текста плейсхолдера */
+}
+
+.input-panel:focus {
+    border-color: rgba(95, 95, 95, 0.4); /* Цвет рамки при фокусе */
+    outline: none; /* Убираем стандартный контур */
+}
+
+@media (min-width=1px) { 
+  :root { 
+    width: auto;
+    height: auto;
+  }
+}
+
+
 </style>

@@ -1,3 +1,3 @@
-export const CONFIG = { 
-  maxLenghtTodo_CONFIG: 5
-}
+const maxLenghtTodo_CONFIG = 5
+
+export { maxLenghtTodo_CONFIG }

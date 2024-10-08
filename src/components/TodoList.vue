@@ -1,21 +1,15 @@
 <script setup lang="ts">
 import Todo from "./Todo.vue";
+import Checkbox from "./services/Checkbox.vue";
 
-defineProps(["todoList"]);
-
-/* 
-  Тут лучше вынести проход по циклу на template
-  
-  Сейчас ты сделал так, что у тебя на сущности туду - цикл и сам компонент
-  Так можно, но если можешь упростить - упрости. Лучше сказать, что сейчас 
-  будет цикл, в котором будет такая переменная
-*/
+defineProps(["typedTodos"]);
 
 /*
   На компоненты нельзя вешать классы class="listTodo"
   Можно только на элементы html, либо передавать пропс class через
   выражение :class="someClassAsString", где someClassAsString - это переменная, которая
   объявлена в <script>
+
 */
 
 /*
@@ -28,13 +22,29 @@ defineProps(["todoList"]);
 </script>
 
 <template>
-  <template
-    v-for="(todo, todoIndex) in todoList"
+  <div 
+    v-for="(todo, todoIndex) in typedTodos"
     :key="todoIndex"
+    class="todo-item"
   >
+    <Checkbox 
+        :id="'checkbox-' + todoIndex"
+        :label="todo.label"
+        v-model="todo.checked"
+    />
     <Todo
+      :typedTodos="typedTodos"
       :todo="todo"
       :index="todoIndex"
     />
-  </template>
+  </div>
 </template>
+
+<style scoped> 
+.todo-item {
+    justify-content: space-between;
+    display: flex; /* Используем Flexbox для выравнивания */
+    align-items: center; /* Выравнивание по центру по вертикали */
+    margin-bottom: 10px; /* Отступ между элементами списка */
+}
+</style> 
