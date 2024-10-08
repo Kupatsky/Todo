@@ -9,9 +9,8 @@ defineProps(["todo", "todoIndex", "typedTodos"]);
 
 <template>
     <div class="todo_content">
-      <p>{{ todo.content }}</p>
-      <p>{{ todoIndex }}</p>  
-      <p>{{ todo.id }}</p>
+      <p>{{ todo.content }}</p> 
+      <p>{{ todo}}</p>
       <DeleteButton
         :typedTodos="typedTodos"
         :removeTodo="removeTodo"
