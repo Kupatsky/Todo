@@ -28,10 +28,15 @@ export function useTodoStore() {
     todos.value.push(newTodo) 
   };
   // Функция удаления по айди
-  const removeTodo = (id: number) => { 
-    console.log('Удаляем задачу с ID:', id);
-    todos.value = todos.value.filter(todo => todo.id !== id);
-    console.log('Текущий список задач:', todos.value);
+  const removeTodo = (todos: Todos, id: number):void => { 
+    if (Array.isArray(todos)) {
+      const index = todos.findIndex(todo => todo.id === id);
+      if (index !== -1) {
+        todos.splice(index, 1);
+      }
+    } else {
+      console.error('todos.value не является массивом:', todos);
+    }
   };
 
   return { 

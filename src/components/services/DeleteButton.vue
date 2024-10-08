@@ -1,25 +1,18 @@
 <script setup lang="ts">
-// import { inject } from "vue";
-// import { removeTodo_Key } from "../../assets/keys.ts";
-// import type { removeTodoFunc } from "../../assets/keys.ts";
-
-
-// defineProps(["todo", "index"]);
-// const deleteItem = inject(removeTodo_Key) as removeTodoFunc;
-
 import { defineProps } from 'vue';
-import type { Todo } from '../../storage/todoStore'; // Убедитесь, что путь к вашему интерфейсу правильный
+import type { Todo, Todos } from '../../storage/todoStore'; 
 
 // Определяем свойства, которые будут переданы в компонент
 const props = defineProps<{
-  todo: Todo;
-  removeTodo: (id: number) => void;
+  typedTodos: Todos,
+  todo: Todo,
+  removeTodo: (todos: Todos ,id: number) => void;
 }>();
 
 // Функция для удаления задачи
 const removeTodo = () => {
   console.log('Запрос на удаление задачи с ID:', props.todo.id);
-  props.removeTodo(props.todo.id);
+  props.removeTodo(props.typedTodos ,props.todo.id);
 };
 </script>
 

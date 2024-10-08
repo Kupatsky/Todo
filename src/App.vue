@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import TodoList from "./components/TodoList.vue";
-import { provide, ref } from "vue";
+import { ref } from "vue";
 import type { Ref } from "vue";
 // import { maxLenghtTodo_CONFIG } from "./config.ts"
 import { useTodoStore } from './storage/todoStore.ts'
-import type { Todos, Todo } from "./storage/todoStore.ts"
+import type { Todos } from "./storage/todoStore.ts"
 
 const { todos, addTodo } = useTodoStore()
 const newTodoContent: Ref<string | null> = ref('')
