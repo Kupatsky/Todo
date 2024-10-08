@@ -56,7 +56,7 @@ const modalActive: Ref<Boolean> = ref(false);
   />
   </div>
 </template>
-
+<!-- хуй -->
 <style scoped>
 header {
   position: fixed;
