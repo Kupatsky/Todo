@@ -22,7 +22,7 @@ const props = defineProps({
     default: false,
   },
 });
-
+// [eq]
 const emit = defineEmits();
 
 const localChecked = computed({
