@@ -4,21 +4,6 @@ import Checkbox from "./services/Checkbox.vue";
 
 defineProps(["typedTodos"]);
 
-/*
-  На компоненты нельзя вешать классы class="listTodo"
-  Можно только на элементы html, либо передавать пропс class через
-  выражение :class="someClassAsString", где someClassAsString - это переменная, которая
-  объявлена в <script>
-
-*/
-
-/*
-  Индексы в любых циклах лучше прописывать созвучно с переменной
-
-  Т.е. todo и todoIndex или tIndex или tI
-
-  Это позволяет при чтении кода с множеством переменных (которые используются по проходу в цикле) - отличать их по названию
-*/
 </script>
 
 <template>
@@ -29,11 +14,11 @@ defineProps(["typedTodos"]);
   >
     <Checkbox 
         :id="'checkbox-' + todoIndex"
-        :label="todo.label"
+        :todoindex="todoIndex"
+        :todo="todo"
         v-model="todo.checked"
     />
     <Todo
-      :typedTodos="typedTodos"
       :todo="todo"
       :index="todoIndex"
     />

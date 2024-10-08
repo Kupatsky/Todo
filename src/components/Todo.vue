@@ -2,18 +2,18 @@
 import DeleteButton from "./services/DeleteButton.vue";
 import { useTodoStore } from '../storage/todoStore'
 
-const { removeTodo } = useTodoStore()
-defineProps(["todo", "index"]);
+
+defineProps(["todo", "todoIndex"]);
 
 </script>
 
 <template>
     <div class="todo_content">
-      <p>{{ todo }}</p> 
-      <p>{{ index }}</p> 
+      <p>{{ todo.content }}</p>
+      <p>{{ todoIndex }}</p>  
       <DeleteButton
-        :removeTodo="removeTodo"
         :todo="todo"
+        :todoIndex="todoIndex"
       />
     </div>
 </template>

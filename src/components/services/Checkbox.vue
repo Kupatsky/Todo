@@ -2,7 +2,6 @@
   <div>
     <input type="checkbox" :id="id" class="checkbox" v-model="localChecked">
     <label :for="id" class="checkmark"></label>
-    <span>{{ label }}</span>
   </div>
 </template>
 
@@ -14,8 +13,8 @@ const props = defineProps({
     type: String,
     required: true,
   },
-  label: {
-    type: String,
+  todo: {
+    type: Object,
     required: true,
   },
   modelValue: {
