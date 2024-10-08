@@ -29,6 +29,7 @@ export function useTodoStore() {
   };
   // Функция удаления по айди
   const removeTodo = (id: number) => { 
+    console.log('Исходный массив:', todos)
     console.log('Удаляем задачу с ID:', id);
     todos.value = todos.value.filter(todo => todo.id !== id);
     console.log('Текущий список задач:', todos.value);

@@ -29,7 +29,8 @@ defineProps(["typedTodos"]);
   >
     <Checkbox 
         :id="'checkbox-' + todoIndex"
-        :label="todo.label"
+        :index="todoIndex"
+        :label="todo.content"
         v-model="todo.checked"
     />
     <Todo

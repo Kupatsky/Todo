@@ -9,8 +9,8 @@ defineProps(["todo", "index"]);
 
 <template>
     <div class="todo_content">
-      <p>{{ todo }}</p> 
-      <p>{{ index }}</p> 
+      <p>{{ todo.content }}</p> 
+      <!-- <p>{{ todo }}</p>  -->
       <DeleteButton
         :removeTodo="removeTodo"
         :todo="todo"

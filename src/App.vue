@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import TodoList from "./components/TodoList.vue";
-import { provide, ref } from "vue";
+import { ref } from "vue";
 import type { Ref } from "vue";
 // import { maxLenghtTodo_CONFIG } from "./config.ts"
 import { useTodoStore } from './storage/todoStore.ts'
-import type { Todos, Todo } from "./storage/todoStore.ts"
+import type { Todos } from "./storage/todoStore.ts"
 
 const { todos, addTodo } = useTodoStore()
 const newTodoContent: Ref<string | null> = ref('')
@@ -18,24 +18,8 @@ const typedTodos = todos as Ref<Todos>
   }
 };
 
-// const itemTodo: Ref<String> = ref("");
 const modalActive: Ref<Boolean> = ref(false);
-// const itemsTodo: Ref<String[]> = ref([]);
 
-// const addTodo = function(): void {
-//   if (itemsTodo.value.length < maxLenghtTodo_CONFIG) {
-//     itemsTodo.value.push(itemTodo.value);
-//   } else {
-//     console.log("Maximum length of Todo");
-//   }
-// };
-
-// const deleteItem = function (index: number):void {
-//   itemsTodo.value.splice(index, 1);
-// };
-
-
-// provide(removeTodo_Key, deleteItem);
 </script>
 
 <template>
