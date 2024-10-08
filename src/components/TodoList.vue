@@ -19,8 +19,9 @@ defineProps(["typedTodos"]);
         v-model="todo.checked"
     />
     <Todo
+      :typedTodos="typedTodos"
       :todo="todo"
-      :index="todoIndex"
+      :todoIndex="todoIndex"
     />
   </div>
 </template>
