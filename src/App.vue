@@ -4,31 +4,30 @@ import InputPanel from "./components/services/InputPanel.vue";
 import { ref } from "vue";
 import type { Ref } from "vue";
 // import { maxLenghtTodo_CONFIG } from "./config.ts"
-import { useTodoStore } from './storage/todoStore.ts'
-import type { Todos } from "./storage/todoStore.ts"
+import { useTodoStore } from "./storage/todoStore.ts";
+import type { Todos } from "./storage/todoStore.ts";
+import AddTodoIcon from "./components/UI/Icons/AddTodo/AddTodoIcon.vue";
 
-const { todos, addTodo } = useTodoStore()
-  // Инжект потом попробуй
-const typedTodos = todos as Ref<Todos>
+const { todos, addTodo } = useTodoStore();
+// Инжект потом попробуй
+// const typedTodos = todos as Ref<Todos>;
 
 const modalActive: Ref<Boolean> = ref(false);
-  // modal выступает в качестве ссылки на инпут-компонент, и здесь же проверка, указывает ли он на компонент либо он равен нулю
-  // И присваиваем ему ноль с начала выполнения скрипта, так как в родительский он еще не передался 
-const modal = ref<InstanceType<typeof InputPanel> | null>(null)
+// modal выступает в качестве ссылки на инпут-компонент, и здесь же проверка, указывает ли он на компонент либо он равен нулю
+// И присваиваем ему ноль с начала выполнения скрипта, так как в родительский он еще не передался
+const modal = ref<InstanceType<typeof InputPanel> | null>(null);
 
-const showModal = () => { 
-  modal.value.openModal()
-}
+const showModal = () => {
+  if (modal.value) modal.value.openModal();
+};
 </script>
 
 <template>
   <header>
     <h2>Todo-list</h2>
     <button @click="showModal"></button>
-    <InputPanel 
-      ref="modal"
-    />
-    <button @click="console.log(typedTodos)"></button>
+    <InputPanel ref="modal" />
+    <button @click="console.log(todos)"></button>
     <!-- <div
       class="input-container"
       v-if="modalActive"
@@ -41,17 +40,15 @@ const showModal = () => {
       @keyup.enter="addNewTodo"
     />
     </div> -->
-    <button  
+    <button
       @click="modalActive = !modalActive"
       class="add-todo-button"
     >
-      <img src="./images/file-plus-svgrepo-com.svg" alt="Добавить" class="icon" />
+      <AddTodoIcon :additionalClass="'icon'" />
     </button>
   </header>
   <div class="todoColumn">
-    <TodoList 
-      :todos="todos" 
-  />
+    <TodoList :todos="todos" />
   </div>
 </template>
 
@@ -62,7 +59,7 @@ header {
   left: 0;
   right: 0;
   height: 50px;
-  background-color: rgba(255, 0, 0, 0.800);
+  background-color: rgba(255, 0, 0, 0.8);
   display: flex;
   align-items: center;
   justify-content: space-between; /* Распределяет пространство между элементами */
@@ -92,12 +89,12 @@ header .title {
   background-color: rgba(255, 255, 255, 0.462); /* Цвет фона при наведении */
 }
 
-.icon { 
+.icon {
   width: 20px; /* Ширина иконки */
   height: 20px; /* Высота иконки */
 }
 
-.todoColumn { 
+.todoColumn {
   color: black;
   background-color: aliceblue;
 }
@@ -107,12 +104,10 @@ header .title {
   display: flex;
   justify-content: center; /* Центрирует input-панель */
 }
-@media (min-width=1px) { 
-  :root { 
+@media (min-width=1px) {
+  :root {
     width: auto;
     height: auto;
   }
 }
-
-
 </style>
