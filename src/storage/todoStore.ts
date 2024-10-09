@@ -3,6 +3,7 @@ import type { Ref } from 'vue'
 
 // Определяем интерфейс сущности Todo, который будет реализовывать обьект сущности
 export interface Todo { 
+  checked: boolean
   id: number;
   content: string | null
 }
@@ -20,12 +21,14 @@ export function useTodoStore() {
   });
   // Созранение новой сущность
   const addTodo = (content: string | null): void => { 
-    const newTodo: Todo = { 
+    const newTodo: Todo = {
+      checked: false, 
       id: Date.now(),
       content
     };
     // Тупо добавляем его в массив
     todos.value.push(newTodo) 
+    console.log(todos.value)
   };
   // Функция удаления по айди
   const removeTodo = (todos: Todos, id: number):void => { 

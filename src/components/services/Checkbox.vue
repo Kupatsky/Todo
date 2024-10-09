@@ -50,7 +50,7 @@ const localChecked = computed({
 
 .checkbox:checked + .checkmark {
     background-color: rgba(255, 255, 255, 0.5); 
-    border-color: white; 
+    border-color: rgba(144, 97, 97, 0.584); 
 }
 
 .checkmark:after {

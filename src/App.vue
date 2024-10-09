@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import TodoList from "./components/TodoList.vue";
+import InputPanel from "./components/services/InputPanel.vue";
 import { ref } from "vue";
 import type { Ref } from "vue";
 // import { maxLenghtTodo_CONFIG } from "./config.ts"
@@ -7,25 +8,28 @@ import { useTodoStore } from './storage/todoStore.ts'
 import type { Todos } from "./storage/todoStore.ts"
 
 const { todos, addTodo } = useTodoStore()
-const newTodoContent: Ref<string | null> = ref('')
   // Инжект потом попробуй
 const typedTodos = todos as Ref<Todos>
 
-  const addNewTodo = () => {
-  if (newTodoContent.value) {
-    addTodo(newTodoContent.value);
-    newTodoContent.value = null; // Очищаем поле ввода после добавления
-  }
-};
-
 const modalActive: Ref<Boolean> = ref(false);
+  // modal выступает в качестве ссылки на инпут-компонент, и здесь же проверка, указывает ли он на компонент либо он равен нулю
+  // И присваиваем ему ноль с начала выполнения скрипта, так как в родительский он еще не передался 
+const modal = ref<InstanceType<typeof InputPanel> | null>(null)
 
+const showModal = () => { 
+  modal.value.openModal()
+}
 </script>
 
 <template>
   <header>
     <h2>Todo-list</h2>
-    <div
+    <button @click="showModal"></button>
+    <InputPanel 
+      ref="modal"
+    />
+    <button @click="console.log(typedTodos)"></button>
+    <!-- <div
       class="input-container"
       v-if="modalActive"
     >
@@ -36,15 +40,9 @@ const modalActive: Ref<Boolean> = ref(false);
       placeholder="What u gonna do today"
       @keyup.enter="addNewTodo"
     />
-    </div>
+    </div> -->
     <button  
       @click="modalActive = !modalActive"
-      class="add-todo-button"
-    >
-      <img src="./images/file-plus-svgrepo-com.svg" alt="Добавить" class="icon" />
-    </button>
-    <button  
-      @click="console.log(todos)"
       class="add-todo-button"
     >
       <img src="./images/file-plus-svgrepo-com.svg" alt="Добавить" class="icon" />
@@ -52,11 +50,11 @@ const modalActive: Ref<Boolean> = ref(false);
   </header>
   <div class="todoColumn">
     <TodoList 
-      :typedTodos="typedTodos" 
+      :todos="todos" 
   />
   </div>
 </template>
-<!-- хуй -->
+
 <style scoped>
 header {
   position: fixed;
@@ -109,29 +107,6 @@ header .title {
   display: flex;
   justify-content: center; /* Центрирует input-панель */
 }
-
-.input-panel {
-  margin-bottom: 0px;
-  width: 200px; /* Ширина панели ввода */
-  padding: 10px; /* Отступы внутри */
-  font-weight: lighter; /* Жирный шрифт */
-  font-size: 12px; /* Размер шрифта */
-  border: 2px solid rgba(255, 255, 255, 0.5); /* Полупрозрачная рамка */
-  border-radius: 5px; /* Закругленные углы */
-  background-color: rgba(255, 255, 255, 0.6); /* Полупрозрачный фон */
-  color: #333; /* Цвет текста */
-  transition: border-color 0.3s; /* Плавный переход для рамки */
-}
-
-.input-panel::placeholder {
-    color: rgba(0, 0, 0, 0.5); /* Цвет текста плейсхолдера */
-}
-
-.input-panel:focus {
-    border-color: rgba(95, 95, 95, 0.4); /* Цвет рамки при фокусе */
-    outline: none; /* Убираем стандартный контур */
-}
-
 @media (min-width=1px) { 
   :root { 
     width: auto;

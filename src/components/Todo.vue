@@ -8,9 +8,12 @@ defineProps(["todo", "todoIndex", "typedTodos"]);
 </script>
 
 <template>
-    <div class="todo_content">
+    <div 
+      class="todo_content"
+      :class="{ todo_done: todo.checked }"
+    >
       <p>{{ todo.content }}</p> 
-      <p>{{ todo}}</p>
+      <!-- <p>{{ todo.checked }}</p> -->
       <DeleteButton
         :typedTodos="typedTodos"
         :removeTodo="removeTodo"
@@ -21,6 +24,10 @@ defineProps(["todo", "todoIndex", "typedTodos"]);
 </template>
 
 <style scoped>
+.todo_done { 
+  color: rgba(128, 128, 128, 0.5); /* Серый цвет с меньшей интенсивностью */
+  text-decoration: line-through; /* Перечеркивание текста */
+}
 
 .todo_content { 
   display: flex;

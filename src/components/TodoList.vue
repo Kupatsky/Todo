@@ -2,13 +2,14 @@
 import Todo from "./Todo.vue";
 import Checkbox from "./services/Checkbox.vue";
 
-defineProps(["typedTodos"]);
+defineProps(["todos"]);
 
 </script>
 
 <template>
+  <button @click="console.log(todos)">check</button>
   <div 
-    v-for="(todo, todoIndex) in typedTodos"
+    v-for="(todo, todoIndex) in todos"
     :key="todoIndex"
     class="todo-item"
   >
@@ -19,7 +20,7 @@ defineProps(["typedTodos"]);
         v-model="todo.checked"
     />
     <Todo
-      :typedTodos="typedTodos"
+      :todos="todos"
       :todo="todo"
       :todoIndex="todoIndex"
     />
@@ -27,6 +28,7 @@ defineProps(["typedTodos"]);
 </template>
 
 <style scoped> 
+
 .todo-item {
     justify-content: space-between;
     display: flex; /* Используем Flexbox для выравнивания */
