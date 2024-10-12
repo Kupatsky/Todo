@@ -1,10 +1,11 @@
 <template>
   <div v-if="isVisible" class="modal-overlay" @click.self="closeModal">
     <div class="modal-content">
-      <h2>Модальное окно</h2>
       <input type="text" v-model="newTodoContent" placeholder="Введите текст" class="input_panel" @keyup.enter="addNewTodo" />
-      <button @click="addNewTodo">Отправить</button>
-      <button @click="console.log(newTodoContent)">Закрыть</button>
+      <div class="btn_container">
+        <button @click="addNewTodo">Отправить</button>
+        <button @click="closeModal">Закрыть</button>
+      </div>
     </div>
   </div>
 </template>
@@ -12,20 +13,19 @@
 <script setup lang="ts">
 import type { Ref } from 'vue' 
 import { ref } from 'vue';
-import { useTodoStore } from '../../storage/todoStore.ts'
+import { useTodoStore } from '../../storage/todoStore.ts';
+
 const { addTodo } = useTodoStore()
 const newTodoContent: Ref<string | null> = ref('')
+const isVisible = ref(false);
 
-
-const addNewTodo = () => {
+function addNewTodo() { 
   if (newTodoContent.value) {
     addTodo(newTodoContent.value);
     newTodoContent.value = null;
     closeModal() 
   }
-};
-
-const isVisible = ref(false);
+}
 
 const openModal = () => {
   isVisible.value = true;
@@ -52,6 +52,24 @@ defineExpose({ openModal });
   align-items: center;
 }
 
+.btn_container { 
+  display: flex;
+  justify-content: space-between; 
+  width: 100%; 
+  max-width: 100%; 
+  margin-bottom: 0px;
+}
+
+button { 
+  text-align: center;
+  background-color: white;
+  color:#333;
+  border: 2px solid rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  padding: 10px;
+  
+}
+
 .modal-content {
   background-color: white;
   border-radius: 10px;
@@ -59,28 +77,37 @@ defineExpose({ openModal });
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   width: 300px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-height: 120px;
+  
 }
 
 .input_panel { 
-  margin-bottom: 0px;
-  width: 200px; /* Ширина панели ввода */
-  padding: 10px; /* Отступы внутри */
-  font-weight: lighter; /* Жирный шрифт */
-  font-size: 12px; /* Размер шрифта */
-  border: 2px solid rgba(255, 255, 255, 0.5); /* Полупрозрачная рамка */
-  border-radius: 5px; /* Закругленные углы */
-  background-color: rgba(255, 255, 255, 0.6); /* Полупрозрачный фон */
-  color: #333; /* Цвет текста */
-  transition: border-color 0.3s; /* Плавный переход для рамки */
+  max-width: 100%;
+  margin-bottom: 15px;
+  width: 290px; 
+  padding-left: 6px; 
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-weight: bold; 
+  font-size: 16px; 
+  border: 2px solid rgba(0, 0, 0, 0.5); 
+  border-radius: 5px; 
+  background-color: rgba(255, 255, 255, 0.6); 
+  color: #333;
+  transition: border-color 0.3s; 
 }
 
 .input_panel::placeholder {
-    color: rgba(0, 0, 0, 0.5); /* Цвет текста плейсхолдера */
+    color: rgba(0, 0, 0, 0.5); 
 }
 
 .input-panel:focus {
-    border-color: rgba(95, 95, 95, 0.4); /* Цвет рамки при фокусе */
-    outline: none; /* Убираем стандартный контур */
+    border-color: rgba(95, 95, 95, 0.4); 
+    outline: none; 
 }
 
 </style>

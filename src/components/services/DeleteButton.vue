@@ -5,7 +5,7 @@ import BasketIcon from "../UI/Icons/BasketIcon.vue";
 
 // Определяем свойства, которые будут переданы в компонент
 const props = defineProps<{
-  typedTodos: Todos;
+  todos: Todos;
   todo: Todo;
   removeTodo: (todos: Todos, id: number) => void;
 }>();
@@ -13,7 +13,7 @@ const props = defineProps<{
 // Функция для удаления задачи
 const removeTodo = () => {
   console.log("Запрос на удаление задачи с ID:", props.todo.id);
-  props.removeTodo(props.typedTodos, props.todo.id);
+  props.removeTodo(props.todos, props.todo.id);
 };
 </script>
 

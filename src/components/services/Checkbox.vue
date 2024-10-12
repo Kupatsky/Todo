@@ -23,6 +23,8 @@ const props = defineProps({
   },
 });
 
+
+
 const emit = defineEmits();
 
 const localChecked = computed({
@@ -35,7 +37,7 @@ const localChecked = computed({
 
 .checkmark { 
   float: left; /* Плаваем влево */
-  margin-right: 10px; /* Отступ справа от метки */
+  margin-right: 10px; 
   display: flex;
   width: 20px;
   height: 20px;

@@ -1,23 +1,25 @@
 <script setup lang="ts">
 import Todo from "./Todo.vue";
 import Checkbox from "./services/Checkbox.vue";
+import type { Todos } from '../storage/todoStore'
 
-defineProps(["todos"]);
+defineProps<{ 
+  todos: Todos
+}>();
 
 </script>
 
 <template>
-  <button @click="console.log(todos)">check</button>
   <div 
     v-for="(todo, todoIndex) in todos"
     :key="todoIndex"
     class="todo-item"
   >
     <Checkbox 
-        :id="'checkbox-' + todoIndex"
-        :todoindex="todoIndex"
-        :todo="todo"
-        v-model="todo.checked"
+      :id="'checkbox-' + todoIndex"
+      :todoindex="todoIndex"
+      :todo="todo"
+      v-model="todo.checked"
     />
     <Todo
       :todos="todos"
@@ -32,7 +34,7 @@ defineProps(["todos"]);
 .todo-item {
     justify-content: space-between;
     display: flex; /* Используем Flexbox для выравнивания */
-    align-items: center; /* Выравнивание по центру по вертикали */
-    margin-bottom: 10px; /* Отступ между элементами списка */
+    align-items: center; 
+    margin-bottom: 10px; 
 }
 </style> 
