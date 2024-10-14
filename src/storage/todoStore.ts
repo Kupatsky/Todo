@@ -40,7 +40,6 @@ export const useTodoStore = defineStore("todoStore", () => {
         todos.splice(index, 1);
       }
     } else {
-      console.log(typeof(todos))
       console.error("todos.value не является массивом:", todos);
     }
   };

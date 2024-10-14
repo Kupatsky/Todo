@@ -82,6 +82,8 @@ header .title {
 .todoColumn {
   color: black;
   background-color: aliceblue;
+  display: flex;
+  max-width: 100%;
 }
 
 .input-container {

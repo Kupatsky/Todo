@@ -18,6 +18,7 @@ defineProps<{
     :class="{ todo_done: todo.checked }"
   >
     <p>{{ todo.content }}</p> 
+    <p>{{ todo }}</p>
     <DeleteButton
       :todos="todos"
       :removeTodo="removeTodo"

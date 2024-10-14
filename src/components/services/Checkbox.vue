@@ -1,36 +1,25 @@
 <template>
   <div>
-    <input type="checkbox" :id="id" class="checkbox" v-model="localChecked">
-    <label :for="id" class="checkmark"></label>
+    <input type="checkbox" class="checkbox" :key="props.id">
+    <label class="checkmark" @click="checkTodo"></label>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
-
-const props = defineProps({
-  id: {
-    type: String,
-    required: true,
-  },
-  todo: {
-    type: Object,
-    required: true,
-  },
-  modelValue: {
-    type: Boolean,
-    default: false,
-  },
-});
+import type { Todo } from '../../storage/todoStore'
 
 
+const props = defineProps<{ 
+  id: number
+  todo: Todo
+}>()
 
-const emit = defineEmits();
+function checkTodo() { 
+  if ( props.todo.checked ) 
+  props.todo.checked = false 
+  else props.todo.checked = true
+}
 
-const localChecked = computed({
-  get: () => props.modelValue,
-  set: (value) => emit('update:modelValue', value),
-});
 </script>
 
 <style scoped>

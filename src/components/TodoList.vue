@@ -16,10 +16,8 @@ defineProps<{
     class="todo-item"
   >
     <Checkbox 
-      :id="'checkbox-' + todoIndex"
-      :todoindex="todoIndex"
+      :id="todoIndex"
       :todo="todo"
-      v-model="todo.checked"
     />
     <Todo
       :todos="todos"
@@ -32,9 +30,12 @@ defineProps<{
 <style scoped> 
 
 .todo-item {
-    justify-content: space-between;
+    /* justify-content: space-between; */
     display: flex; /* Используем Flexbox для выравнивания */
     align-items: center; 
     margin-bottom: 10px; 
+    
+    border: 5px;
+    border-color: black;
 }
 </style> 
