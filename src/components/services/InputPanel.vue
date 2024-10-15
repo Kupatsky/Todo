@@ -3,7 +3,7 @@
     <div class="modal-content">
       <input type="text" v-model="newTodoContent" placeholder="Введите текст" class="input_panel" @keyup.enter="addNewTodo" />
       <div class="btn_container">
-        <button @click="addNewTodo">Отправить</button>
+        <button @click="addNewTodo">Добавить</button>
         <button @click="closeModal">Закрыть</button>
       </div>
     </div>

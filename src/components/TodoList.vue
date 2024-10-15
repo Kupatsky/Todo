@@ -30,12 +30,15 @@ defineProps<{
 <style scoped> 
 
 .todo-item {
-    /* justify-content: space-between; */
+    flex: 1;
+    min-width: 400px;
+    margin: 10px;
+    border: 2px solid #000;
+    border-radius: 40px;
+    box-sizing: border-box;
+    padding: 20px;
+    text-align: center;
     display: flex; /* Используем Flexbox для выравнивания */
-    align-items: center; 
-    margin-bottom: 10px; 
-    
-    border: 5px;
-    border-color: black;
 }
+
 </style> 

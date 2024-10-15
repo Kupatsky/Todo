@@ -43,13 +43,13 @@ header {
   top: 0;
   left: 0;
   right: 0;
-  height: 50px;
-  background-color: rgba(255, 0, 0, 0.8);
+  height: 70px;
+  background-color: aliceblue;
   display: flex;
   align-items: center;
   justify-content: space-between; 
   padding: 0 20px;
-  color: white;
+  color: rgb(0, 0, 0);
   z-index: 1000;
 }
 
@@ -83,7 +83,13 @@ header .title {
   color: black;
   background-color: aliceblue;
   display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 10px;
   max-width: 100%;
+  margin-top: 25px;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .input-container {
