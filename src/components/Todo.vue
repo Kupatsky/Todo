@@ -18,6 +18,7 @@ defineProps<{
     :class="{ todo_done: todo.checked }"
   >
     <p>{{ todo.content }}</p> 
+    <p> {{ todo.date }}</p>
     <DeleteButton
       :todos="todos"
       :removeTodo="removeTodo"
@@ -34,11 +35,12 @@ defineProps<{
 }
 
 .todo_content { 
+  font-size: 25px;
+  font-weight: 200;
   display: flex;
   padding: 20px; 
   text-align: left;
   margin: 0 auto;
-  max-width: 100%;
   width: 100%;
   justify-content: space-between;
 

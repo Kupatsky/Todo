@@ -1,6 +1,7 @@
 <template>
   <div v-if="isVisible" class="modal-overlay" @click.self="closeModal">
     <div class="modal-content">
+      <input type="date" class="input-date" v-model="newTodoDate"/> 
       <input type="text" v-model="newTodoContent" placeholder="Введите текст" class="input_panel" @keyup.enter="addNewTodo" />
       <div class="btn_container">
         <button @click="addNewTodo">Добавить</button>
@@ -15,14 +16,17 @@ import type { Ref } from 'vue'
 import { ref } from 'vue';
 import { useTodoStore } from '../../storage/todoStore.ts';
 
+const newTodoDate = ref() as Ref<Date | null>
 const { addTodo } = useTodoStore()
 const newTodoContent: Ref<string | null> = ref('')
 const isVisible = ref(false);
 
 function addNewTodo() { 
-  if (newTodoContent.value) {
-    addTodo(newTodoContent.value);
+  if (newTodoContent.value, newTodoDate.value) {
+    addTodo(newTodoContent.value, newTodoDate.value);
+    console.log(newTodoDate.value)
     newTodoContent.value = null;
+    newTodoDate.value = null;
     closeModal() 
   }
 }
@@ -40,6 +44,12 @@ defineExpose({ openModal });
 </script>
 
 <style scoped>
+.input-date {
+  width: auto;
+  height: auto;
+
+}
+
 .modal-overlay {
   position: fixed;
   top: 0;

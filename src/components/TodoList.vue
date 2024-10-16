@@ -30,13 +30,17 @@ defineProps<{
 <style scoped> 
 
 .todo-item {
-    flex: 1;
-    min-width: 400px;
+    flex: 0 0 100%;
+    height: auto;
+    width: 100%;
     margin: 10px;
     border: 2px solid #000;
     border-radius: 40px;
     box-sizing: border-box;
     padding: 20px;
+    word-wrap: break-word; 
+    overflow-wrap: break-word; 
+    justify-content: space-between;
     text-align: center;
     display: flex; /* Используем Flexbox для выравнивания */
 }

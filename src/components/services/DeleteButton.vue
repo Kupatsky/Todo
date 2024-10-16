@@ -26,7 +26,7 @@ const removeTodo = () => {
   </button>
 </template>
 
-<style scope>
+<style scoped>
 .delete-button {
   background-color: transparent; /* Прозрачный фон */
   border: none; /* Убираем рамку */

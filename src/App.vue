@@ -75,8 +75,8 @@ header .title {
 }
 
 .icon {
-  width: 20px; 
-  height: 20px; 
+  width: 30px; 
+  height: 30px; 
 }
 
 .todoColumn {
