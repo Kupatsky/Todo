@@ -5,8 +5,10 @@
       <input type="text" v-model="newTodoContent" placeholder="Введите текст" class="input_panel" @keyup.enter="addNewTodo" />
       <div class="btn_container">
         <button @click="addNewTodo">Добавить</button>
+        <p> {{ newTodoDate }}</p>
+        <button @click="console.log(newTodoDate)">тест </button>
         <button @click="closeModal">Закрыть</button>
-      </div>
+      </div>  
     </div>
   </div>
 </template>
@@ -16,17 +18,19 @@ import type { Ref } from 'vue'
 import { ref } from 'vue';
 import { useTodoStore } from '../../storage/todoStore.ts';
 
-const newTodoDate = ref() as Ref<Date | null>
+export type TodoDate = Ref<Date | null>
+
+const newTodoDate: TodoDate = ref(null)
+// const formatedDate: TodoDate = ref(null)
 const { addTodo } = useTodoStore()
 const newTodoContent: Ref<string | null> = ref('')
 const isVisible = ref(false);
 
+
 function addNewTodo() { 
-  if (newTodoContent.value, newTodoDate.value) {
+  if (newTodoContent.value, newTodoDate) {
     addTodo(newTodoContent.value, newTodoDate.value);
-    console.log(newTodoDate.value)
     newTodoContent.value = null;
-    newTodoDate.value = null;
     closeModal() 
   }
 }

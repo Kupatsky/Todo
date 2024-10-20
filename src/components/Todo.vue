@@ -10,6 +10,10 @@ defineProps<{
   todos: Todos
 }>();
 
+// function formatDate(props) { 
+//   const newMonth = String(props.todo.date.getMonth() + 1)
+//   const newDate = String(props.todo.date.getDate())
+// }
 </script>
 
 <template>
@@ -19,6 +23,7 @@ defineProps<{
   >
     <p>{{ todo.content }}</p> 
     <p> {{ todo.date }}</p>
+    <button @click="console.log(typeof(todo.date))"></button>
     <DeleteButton
       :todos="todos"
       :removeTodo="removeTodo"
