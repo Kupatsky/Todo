@@ -1,12 +1,10 @@
 <template>
   <div v-if="isVisible" class="modal-overlay" @click.self="closeModal">
     <div class="modal-content">
-      <input type="date" class="input-date" v-model="newTodoDate"/> 
+      <input type="date" class="input-date" v-model="newTodoDate" /> 
       <input type="text" v-model="newTodoContent" placeholder="Введите текст" class="input_panel" @keyup.enter="addNewTodo" />
       <div class="btn_container">
         <button @click="addNewTodo">Добавить</button>
-        <p> {{ newTodoDate }}</p>
-        <button @click="console.log(newTodoDate)">тест </button>
         <button @click="closeModal">Закрыть</button>
       </div>  
     </div>
@@ -18,8 +16,9 @@ import type { Ref } from 'vue'
 import { ref } from 'vue';
 import { useTodoStore } from '../../storage/todoStore.ts';
 
-export type TodoDate = Ref<Date | null>
+export type TodoDate = Ref<string | null>   
 
+const todoDate: Ref<string> = ref('')
 const newTodoDate: TodoDate = ref(null)
 // const formatedDate: TodoDate = ref(null)
 const { addTodo } = useTodoStore()
@@ -29,11 +28,20 @@ const isVisible = ref(false);
 
 function addNewTodo() { 
   if (newTodoContent.value, newTodoDate) {
-    addTodo(newTodoContent.value, newTodoDate.value);
+    formatDate(todoDate)
+    addTodo(newTodoContent.value, todoDate.value);
     newTodoContent.value = null;
     closeModal() 
   }
 }
+
+function formatDate(todoDate: Ref<string>): void { 
+  const inputDate = new Date(newTodoDate.value);
+  const todoMonth = String(inputDate.getMonth() + 1);
+  const todoOfDate = String(inputDate.getDate()).padStart(2, '0')
+
+  todoDate.value = `${todoOfDate}.${todoMonth}`
+} 
 
 const openModal = () => {
   isVisible.value = true;

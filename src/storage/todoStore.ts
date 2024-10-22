@@ -7,7 +7,7 @@ export interface Todo {
   checked: boolean;
   id: number;
   content: string | null;
-  date: Date | null
+  date: string | null
 }
 
 // Определяем тип с массивом обьектов Todo, либо пустым массивом
@@ -23,8 +23,9 @@ export const useTodoStore = defineStore("todoStore", () => {
   watch(todos, (newTodos) => {
     localStorage.setItem("todos", JSON.stringify(newTodos));
   });
+
   // Созранение новой сущность
-  const addTodo = (content: string | null, date: Date | null): void => {
+  const addTodo = (content: string | null, date: string | null): void => {
     const newTodo: Todo = {
       checked: false,
       id: Date.now(),

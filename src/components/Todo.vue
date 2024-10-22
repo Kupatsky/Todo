@@ -2,7 +2,7 @@
 import DeleteButton from "./services/DeleteButton.vue";
 import { Todo, useTodoStore } from '../storage/todoStore'
 import type { Todos } from "../storage/todoStore"
-
+import TodoDateIcon from "./UI/Icons/TodoDateIcon.vue";
 const { removeTodo } = useTodoStore()
 defineProps<{ 
   todo: Todo,
@@ -10,10 +10,6 @@ defineProps<{
   todos: Todos
 }>();
 
-// function formatDate(props) { 
-//   const newMonth = String(props.todo.date.getMonth() + 1)
-//   const newDate = String(props.todo.date.getDate())
-// }
 </script>
 
 <template>
@@ -21,9 +17,13 @@ defineProps<{
     class="todo_content"
     :class="{ todo_done: todo.checked }"
   >
-    <p>{{ todo.content }}</p> 
-    <p> {{ todo.date }}</p>
-    <button @click="console.log(typeof(todo.date))"></button>
+    <div class="text-container">
+      <p>{{ todo.content }}</p> 
+      <p class="date">
+        <TodoDateIcon />
+        {{ todo.date }}
+      </p>
+    </div>
     <DeleteButton
       :todos="todos"
       :removeTodo="removeTodo"
@@ -49,6 +49,19 @@ defineProps<{
   width: 100%;
   justify-content: space-between;
 
+}
+
+.text-container {
+  display: flex; 
+  flex-direction: column; 
+}
+
+p {
+    margin: 0; 
+}
+
+.data img { 
+  padding-left: 5px;
 }
 
 </style>
