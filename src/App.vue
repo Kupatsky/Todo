@@ -23,7 +23,6 @@ const showModal = () => {
     <h2>Todo-list</h2>
     <InputPanel ref="modal" />
     <button
-      @click="modalActive = !modalActive"
       class="add-todo-button"
     >
       <AddTodoIcon 

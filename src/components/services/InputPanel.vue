@@ -1,14 +1,16 @@
 <template>
-  <div v-if="isVisible" class="modal-overlay" @click.self="closeModal">
-    <div class="modal-content">
-      <input type="date" class="input-date" v-model="newTodoDate" /> 
-      <input type="text" v-model="newTodoContent" placeholder="Введите текст" class="input_panel" @keyup.enter="addNewTodo" />
-      <div class="btn_container">
-        <button @click="addNewTodo">Добавить</button>
-        <button @click="closeModal">Закрыть</button>
-      </div>  
+  <Transition name="fade">
+    <div v-if="isVisible" class="modal-overlay" @click.self="closeModal">
+      <div class="modal-content">
+        <input type="date" class="input-date" v-model="newTodoDate" /> 
+        <input type="text" v-model="newTodoContent" placeholder="Введите текст" class="input_panel" @keyup.enter="addNewTodo" />
+        <div class="btn_container">
+          <button @click="addNewTodo">Добавить</button>
+          <button @click="closeModal">Закрыть</button>
+        </div>  
+      </div>
     </div>
-  </div>
+  </Transition>
 </template>
 
 <script setup lang="ts">
@@ -16,18 +18,19 @@ import type { Ref } from 'vue'
 import { ref } from 'vue';
 import { useTodoStore } from '../../storage/todoStore.ts';
 
-export type TodoDate = Ref<string | null>   
+export type TodoDate = Ref<Date>   
+export type TodoContent = Ref<string | null>
 
 const todoDate: Ref<string> = ref('')
-const newTodoDate: TodoDate = ref(null)
+const newTodoDate: TodoDate = ref(new Date())
 // const formatedDate: TodoDate = ref(null)
 const { addTodo } = useTodoStore()
-const newTodoContent: Ref<string | null> = ref('')
+const newTodoContent: TodoContent = ref('')
 const isVisible = ref(false);
 
 
 function addNewTodo() { 
-  if (newTodoContent.value, newTodoDate) {
+  if (newTodoContent.value, newTodoDate.value) {
     formatDate(todoDate)
     addTodo(newTodoContent.value, todoDate.value);
     newTodoContent.value = null;
@@ -36,7 +39,7 @@ function addNewTodo() {
 }
 
 function formatDate(todoDate: Ref<string>): void { 
-  const inputDate = new Date(newTodoDate.value);
+  const inputDate = new Date(newTodoDate.value) 
   const todoMonth = String(inputDate.getMonth() + 1);
   const todoOfDate = String(inputDate.getDate()).padStart(2, '0')
 
@@ -56,6 +59,19 @@ defineExpose({ openModal });
 </script>
 
 <style scoped>
+/* С помощью встроенного компонента transition добавим анимацию появления инпут-панели */
+.fade-enter-active {
+  transition: all 0.2s ease;
+}
+
+.fade-leave-active {
+  transition: all 0.2s cubic-bezier(1, 0.6, 0.6, 1);
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
 .input-date {
   width: auto;
   height: auto;
