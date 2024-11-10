@@ -2,7 +2,9 @@
 	import DeleteButton from '@features/DeleteTodoButton/DeleteButton.vue';
 	import { Todo, useTodoStore } from '@shared/TodoStore/todoStore';
 	import type { Todos } from '@shared/TodoStore/todoStore';
+
 	const { removeTodo } = useTodoStore();
+
 	defineProps<{
 		todo: Todo;
 		todoIndex: number;

@@ -1,24 +1,20 @@
 <script setup lang="ts">
 	import TodoList from '@enteties/TodoList/TodoList.vue';
-	import InputPanel from '@features/InputNewTodo/InputPanel.vue';
+	// import InputPanel from '@features/InputNewTodo/InputPanel.vue';
+	import TodoInput from '@/features/TemplateInputTodo/TodoInput.vue';
 	import Toast from 'primevue/toast';
 	import { useToast } from 'primevue/usetoast';
 	import { ref, watch } from 'vue';
 	import { useTodoStore } from '@shared/TodoStore/todoStore';
 	import { usePrimeVue } from 'primevue/config';
+	import { useDialog } from 'primevue/usedialog';
 
 	const PrimeVue = usePrimeVue();
-
 	const toast = useToast();
 	const { todos } = useTodoStore();
-	// modal выступает в качестве ссылки на инпут-компонент, и здесь же проверка, указывает ли он на компонент либо он равен нулю
-	// И присваиваем ему ноль с начала выполнения скрипта, так как в родительский он еще не передался
-	const modal = ref<InstanceType<typeof InputPanel> | null>(null);
-	const themeCheck = ref(false);
+	const dialog = useDialog();
 
-	const showModal = () => {
-		if (modal.value) modal.value.openModal();
-	};
+	const themeCheck = ref(false);
 
 	watch(themeCheck, (themeCheck) => {
 		if (themeCheck) {
@@ -48,6 +44,15 @@
 		}
 	});
 
+	const showInputTodo = () => {
+		dialog.open(TodoInput, {
+			props: {
+				header: 'Новая задача',
+				modal: true,
+			},
+		});
+	};
+
 	const changeTheme = () => {
 		themeCheck.value = !!themeCheck.value;
 		console.log(themeCheck.value);
@@ -55,17 +60,17 @@
 </script>
 
 <template>
-	<InputPanel ref="modal" />
+	<DynamicDialog header="Новая задача" />
 	<header>
 		<h2 style="flex-grow: 2">Todo List</h2>
 		<Button
 			class="add-todo-button"
 			icon="pi pi-plus"
 			aria-label="AddTodo"
-			@click="showModal" />
+			@click="showInputTodo" />
 		<ToggleButton
-			onLabel="Light"
-			offLabel="Dark"
+			onLabel="Светлая"
+			offLabel="Темная"
 			offIcon="pi pi-moon"
 			onIcon="pi pi-sun"
 			@click="changeTheme"
