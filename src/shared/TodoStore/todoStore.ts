@@ -28,35 +28,35 @@ export const useTodoStore = defineStore("todoStore", () => {
   });
 
 watch(
-		todos,
+		() => todos.value.length,
 		(newTodos, oldTodos) => {
-			console.log(newTodos)
-      console.log(oldTodos)
-			if (newTodos.length > oldTodos.length) {
+			if (newTodos > oldTodos) {
 				toast.add({
 					severity: 'success',
 					summary: 'Готово!',
-					detail: 'Н12213123',
+					detail: 'Новая сущность добавлена',
 					life: 3000,
 				});
-			} else if (newTodos.length < oldTodos.length) {
+			} else if (newTodos < oldTodos) {
 				toast.add({
-					severity: 'success',
-					summary: 'Готово!',
-					detail: 'Работает!!!',
+					severity: 'error',
+					summary: 'Внимание!',
+					detail: 'Вы удалили сущность',
 					life: 3000,
 				});
 			} else {
 				toast.add({
-					severity: 'success',
+					severity: 'warn',
 					summary: 'Готово!',
-					detail: 'Ну ты и долбаеб',
+					detail: 'Error',
 					life: 3000,
 				});
 			}
 		},
     { deep: true}
 	);
+
+
 
   // Созранение новой сущность
   const addTodo = (content: string | null, date: string | null): void => {

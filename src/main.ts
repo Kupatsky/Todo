@@ -1,8 +1,7 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import PrimeVue from 'primevue/config';
-// import './style.css'
-import App from './App.vue'
+import App from '@app/App.vue'
 import Checkbox from 'primevue/checkbox'
 import InputText from 'primevue/inputtext'
 import FloatLabel from 'primevue/floatlabel'
@@ -13,7 +12,7 @@ import Toast from 'primevue/toast'
 import ToastService from 'primevue/toastservice'
 import ToggleButton from 'primevue/togglebutton';
 
-// import "primevue/resources/themes/aura-dark-green/theme.css"
+// import "primevue/resources/  themes/aura-dark-green/theme.css"
 import 'primeicons/primeicons.css'
 
 

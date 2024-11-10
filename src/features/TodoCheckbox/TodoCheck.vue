@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-	import type { Todo } from '../../storage/todoStore';
+	import type { Todo } from '@shared/TodoStore/todoStore';
 
 	const props = defineProps<{
 		id: number;

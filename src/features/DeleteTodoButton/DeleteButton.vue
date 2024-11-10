@@ -1,6 +1,6 @@
 <script setup lang="ts">
 	import { defineProps } from 'vue';
-	import type { Todo, Todos } from '../../storage/todoStore';
+	import type { Todo, Todos } from '@shared/TodoStore/todoStore';
 
 	// Определяем свойства, которые будут переданы в компонент
 	const props = defineProps<{

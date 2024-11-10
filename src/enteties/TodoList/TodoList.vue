@@ -1,8 +1,8 @@
 <script setup lang="ts">
-	import Todo from './Todo.vue';
+	import Todo from '@enteties/Todo/Todo.vue';
 	// import Cheeckbox from './services/TodoCheck.vue';
-	import type { Todos } from '../storage/todoStore';
-	import TodoCheck from './services/TodoCheck.vue';
+	import type { Todos } from '@shared/TodoStore/todoStore';
+	import TodoCheck from '@features/TodoCheckbox/TodoCheck.vue';
 
 	defineProps<{
 		todos: Todos;
@@ -54,7 +54,7 @@
 
 		height: auto;
 		margin: 10px;
-		border: 2px solid #000000;
+		border: 2px solid var(--primary-color);
 		border-radius: 40px;
 		box-sizing: border-box; /* Учитываем отступы и границы в ширине */
 		padding: 20px;

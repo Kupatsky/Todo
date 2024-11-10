@@ -1,7 +1,7 @@
 <script setup lang="ts">
 	import type { Ref } from 'vue';
 	import { ref } from 'vue';
-	import { useTodoStore } from '../../storage/todoStore.ts';
+	import { useTodoStore } from '@shared/TodoStore/todoStore';
 
 	export type TodoDate = Ref<Date>;
 	export type TodoContent = Ref<string | null>;

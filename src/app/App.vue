@@ -1,15 +1,15 @@
 <script setup lang="ts">
-	import TodoList from './components/TodoList.vue';
-	import InputPanel from './components/services/InputPanel.vue';
+	import TodoList from '@enteties/TodoList/TodoList.vue';
+	import InputPanel from '@features/InputNewTodo/InputPanel.vue';
 	import Toast from 'primevue/toast';
 	import { useToast } from 'primevue/usetoast';
 	import { ref, watch } from 'vue';
-	import { useTodoStore } from './storage/todoStore.ts';
+	import { useTodoStore } from '@shared/TodoStore/todoStore';
 	import { usePrimeVue } from 'primevue/config';
 
-	const toast = useToast();
 	const PrimeVue = usePrimeVue();
 
+	const toast = useToast();
 	const { todos } = useTodoStore();
 	// modal выступает в качестве ссылки на инпут-компонент, и здесь же проверка, указывает ли он на компонент либо он равен нулю
 	// И присваиваем ему ноль с начала выполнения скрипта, так как в родительский он еще не передался
@@ -20,36 +20,6 @@
 		if (modal.value) modal.value.openModal();
 	};
 
-	watch(
-		() => todos,
-		(newTodos, oldTodos) => {
-			console.log(JSON.parse(JSON.stringify(newTodos)));
-			console.log(JSON.parse(JSON.stringify(oldTodos)));
-			if (newTodos.length > oldTodos.length) {
-				toast.add({
-					severity: 'success',
-					summary: 'Готово!',
-					detail: 'Н12213123',
-					life: 3000,
-				});
-			} else if (newTodos.length < oldTodos.length) {
-				toast.add({
-					severity: 'success',
-					summary: 'Готово!',
-					detail: 'Работает!!!',
-					life: 3000,
-				});
-			} else {
-				toast.add({
-					severity: 'success',
-					summary: 'Готово!',
-					detail: 'Ну ты и долбаеб',
-					life: 3000,
-				});
-			}
-		}
-	);
-
 	watch(themeCheck, (themeCheck) => {
 		if (themeCheck) {
 			PrimeVue.changeTheme(
@@ -57,12 +27,24 @@
 				'aura-light-green',
 				'theme-link'
 			);
+			toast.add({
+				severity: 'info',
+				summary: 'Готово!',
+				detail: 'Вы изменили тему на светлую',
+				life: 3000,
+			});
 		} else {
 			PrimeVue.changeTheme(
 				'aura-light-green',
 				'aura-dark-green',
 				'theme-link'
 			);
+			toast.add({
+				severity: 'info',
+				summary: 'Готово!',
+				detail: 'Вы изменили тему на темную',
+				life: 3000,
+			});
 		}
 	});
 
