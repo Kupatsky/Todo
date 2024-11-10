@@ -1,29 +1,3 @@
-<template>
-	<Transition name="fade">
-		<div
-			v-if="isVisible"
-			class="modal-overlay"
-			@click.self="closeModal">
-			<div class="modal-content">
-				<input
-					type="date"
-					class="input-date"
-					v-model="newTodoDate" />
-				<input
-					type="text"
-					v-model="newTodoContent"
-					placeholder="Введите текст"
-					class="input_panel"
-					@keyup.enter="addNewTodo" />
-				<div class="btn_container">
-					<button @click="addNewTodo">Добавить</button>
-					<button @click="closeModal">Закрыть</button>
-				</div>
-			</div>
-		</div>
-	</Transition>
-</template>
-
 <script setup lang="ts">
 	import type { Ref } from 'vue';
 	import { ref } from 'vue';
@@ -67,6 +41,45 @@
 	defineExpose({ openModal });
 </script>
 
+<template>
+	<Transition name="fade">
+		<div
+			v-if="isVisible"
+			class="modal-overlay"
+			@click.self="closeModal">
+			<div class="modal-content">
+				<Calendar
+					v-model="newTodoDate"
+					showIcon
+					iconDisplay="input">
+					<template>
+						<InputIcon class="pi pi-calendar cursor pointer" />
+					</template>
+				</Calendar>
+				<FloatLabel>
+					<InputText
+						id="todoInput"
+						type="text"
+						v-model="newTodoContent"
+						class="input_panel"
+						@keyup.enter="addNewTodo" />
+					<label for="todoInput">Что вы хотите сделать?</label>
+				</FloatLabel>
+				<ButtonGroup>
+					<Button
+						label="Save"
+						icon="pi pi-check"
+						@click="addNewTodo" />
+					<Button
+						label="Close"
+						icon="pi pi-times"
+						@click="closeModal" />
+				</ButtonGroup>
+			</div>
+		</div>
+	</Transition>
+</template>
+
 <style scoped>
 	/* С помощью встроенного компонента transition добавим анимацию появления инпут-панели */
 	.fade-enter-active {
@@ -98,60 +111,20 @@
 		align-items: center;
 	}
 
-	.btn_container {
-		display: flex;
-		justify-content: space-between;
-		width: 100%;
-		max-width: 100%;
-		margin-bottom: 0px;
-	}
-
-	button {
-		text-align: center;
-		background-color: white;
-		color: #333;
-		border: 2px solid rgba(0, 0, 0, 0.5);
-		border-radius: 10px;
-		padding: 10px;
-	}
-
 	.modal-content {
-		background-color: white;
+		background-color: var(--surface-section);
 		border-radius: 10px;
 		padding: 20px;
 		padding-bottom: 30px;
-		box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-		width: 300px;
+		box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+		width: 40vh;
 		text-align: center;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		max-height: 120px;
-	}
-
-	.input_panel {
-		max-width: 100%;
-		margin-bottom: 15px;
-		width: 290px;
-		padding-left: 6px;
-		padding-top: 20px;
-		padding-bottom: 20px;
-		font-weight: bold;
-		font-size: 16px;
-		border: 2px solid rgba(0, 0, 0, 0.5);
-		border-radius: 5px;
-		background-color: rgba(255, 255, 255, 0.6);
-		color: #333;
-		transition: border-color 0.3s;
-	}
-
-	.input_panel::placeholder {
-		color: rgba(0, 0, 0, 0.5);
-	}
-
-	.input-panel:focus {
-		border-color: rgba(95, 95, 95, 0.4);
-		outline: none;
+		height: 40vh;
+		gap: 5vh;
+		z-index: 1000;
 	}
 </style>

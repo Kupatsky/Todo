@@ -1,7 +1,8 @@
 <script setup lang="ts">
 	import Todo from './Todo.vue';
-	import Checkbox from './services/Checkbox.vue';
+	// import Cheeckbox from './services/TodoCheck.vue';
 	import type { Todos } from '../storage/todoStore';
+	import TodoCheck from './services/TodoCheck.vue';
 
 	defineProps<{
 		todos: Todos;
@@ -12,9 +13,9 @@
 	<TransitionGroup name="todo">
 		<div
 			v-for="(todo, todoIndex) in todos"
-			:key="todoIndex"
+			:key="todo.id"
 			class="todo-item">
-			<Checkbox
+			<TodoCheck
 				:id="todoIndex"
 				:todo="todo" />
 			<Todo
@@ -28,34 +29,34 @@
 <style scoped>
 	/* Анимации для встроенного компонента TransitionGroup */
 	.todo-enter-active {
-		transition: opacity 0.6s ease, transform 0.6s ease;
+		transition: opacity 0.4s ease, transform 0.4s ease;
 	}
 
-	.todo-enter-from {
+	/* .todo-enter-from {
 		opacity: 0;
 		transform: translateY(
 			-20px
-		); /* Элемент будет появляться с небольшим смещением вверх */
-	}
+		);
+	} */
 
 	/* Анимация при удалении */
 	.todo-leave-active {
-		transition: opacity 0.5s ease-in, transform 0.5s ease-in;
+		transition: opacity 0.3s ease, transform 0.3s ease;
 	}
-
+	.todo-enter-from,
 	.todo-leave-to {
 		opacity: 0; /* Конечное состояние при уходе */
-		transform: translateX(100%); /* Элемент уходит вправо */
+		transition: opacity 0.4s ease; /* Элемент испаряется */
 	}
 
 	.todo-item {
-		flex: 0 0 100%;
+		flex: 0 1 100%;
+
 		height: auto;
-		width: 100%;
 		margin: 10px;
-		border: 2px solid #000;
+		border: 2px solid #000000;
 		border-radius: 40px;
-		box-sizing: border-box;
+		box-sizing: border-box; /* Учитываем отступы и границы в ширине */
 		padding: 20px;
 		word-wrap: break-word;
 		overflow-wrap: break-word;

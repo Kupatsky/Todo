@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { ref, watch } from "vue";
 import type { Ref } from "vue";
+import { useToast } from 'primevue/usetoast';
 
 // Определяем интерфейс сущности Todo, который будет реализовывать обьект сущности
 export interface Todo {
@@ -14,6 +15,8 @@ export interface Todo {
 export type Todos = Todo[];
 
 export const useTodoStore = defineStore("todoStore", () => {
+
+  const toast = useToast();
   // Получаем по ключу значение из хранилища в формате JSON, которое преобразуем в тип Ref<Todos>
   const todos: Ref<Todos> = ref(
     JSON.parse(localStorage.getItem("todos") ?? "[]")
@@ -23,6 +26,37 @@ export const useTodoStore = defineStore("todoStore", () => {
   watch(todos, (newTodos) => {
     localStorage.setItem("todos", JSON.stringify(newTodos));
   });
+
+watch(
+		todos,
+		(newTodos, oldTodos) => {
+			console.log(newTodos)
+      console.log(oldTodos)
+			if (newTodos.length > oldTodos.length) {
+				toast.add({
+					severity: 'success',
+					summary: 'Готово!',
+					detail: 'Н12213123',
+					life: 3000,
+				});
+			} else if (newTodos.length < oldTodos.length) {
+				toast.add({
+					severity: 'success',
+					summary: 'Готово!',
+					detail: 'Работает!!!',
+					life: 3000,
+				});
+			} else {
+				toast.add({
+					severity: 'success',
+					summary: 'Готово!',
+					detail: 'Ну ты и долбаеб',
+					life: 3000,
+				});
+			}
+		},
+    { deep: true}
+	);
 
   // Созранение новой сущность
   const addTodo = (content: string | null, date: string | null): void => {

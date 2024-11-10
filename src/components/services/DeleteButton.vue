@@ -1,7 +1,6 @@
 <script setup lang="ts">
 	import { defineProps } from 'vue';
 	import type { Todo, Todos } from '../../storage/todoStore';
-	import BasketIcon from '../UI/Icons/BasketIcon.vue';
 
 	// Определяем свойства, которые будут переданы в компонент
 	const props = defineProps<{
@@ -18,11 +17,18 @@
 </script>
 
 <template>
-	<button
+	<!-- <button
 		@click="removeTodo"
 		class="delete-button">
 		<BasketIcon />
-	</button>
+	</button> -->
+
+	<Button
+		icon="pi pi-times"
+		class="add-todo-button"
+		rounded
+		aria-label="Filter"
+		@click="removeTodo" />
 </template>
 
 <style scoped>

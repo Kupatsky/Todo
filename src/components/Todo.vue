@@ -2,7 +2,6 @@
 	import DeleteButton from './services/DeleteButton.vue';
 	import { Todo, useTodoStore } from '../storage/todoStore';
 	import type { Todos } from '../storage/todoStore';
-	import TodoDateIcon from './UI/Icons/TodoDateIcon.vue';
 	const { removeTodo } = useTodoStore();
 	defineProps<{
 		todo: Todo;
@@ -18,7 +17,6 @@
 		<div class="text-container">
 			<p>{{ todo.content }}</p>
 			<p class="date">
-				<TodoDateIcon />
 				{{ todo.date }}
 			</p>
 		</div>
